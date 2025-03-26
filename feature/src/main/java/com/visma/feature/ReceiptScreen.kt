@@ -33,7 +33,6 @@ import com.visma.feature.viewmodel.ReceiptViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +42,6 @@ fun ReceiptScreen(
     onAddReceipt: () -> Unit
 ) {
 
-    // Observe the list of receipts from ViewModel
     val receipts by viewModel.receipts.observeAsState(initial = emptyList())
 
     Scaffold(
@@ -60,27 +58,24 @@ fun ReceiptScreen(
                 modifier = Modifier.padding(paddingValues)
             ) {
                 items(receipts) { receipt ->
-                    ReceiptItem(receipt) // Display each receipt
+                    ReceiptItem(receipt)
                 }
             }
         }
     )
 }
 
-// Composable to display individual receipt item
 @Composable
 fun ReceiptItem(receipt: ReceiptEntity) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp) // Corrected elevation for Material 3
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Log the imageUri to ensure it’s different for each receipt
             Log.d("ReceiptItem", "Image URI: ${receipt.imageUri}")
 
-            // Display Image if the URI is not null or empty
             if (receipt.imageUri.isNotEmpty()) {
                 Image(
                     painter = rememberImagePainter(
@@ -92,11 +87,10 @@ fun ReceiptItem(receipt: ReceiptEntity) {
                     contentDescription = "Captured Receipt Image",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp), // Adjust height as needed
+                        .height(200.dp),
                     contentScale = ContentScale.Crop
                 )
             } else {
-                // Display a placeholder image if URI is empty
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "Placeholder Image",
@@ -107,20 +101,18 @@ fun ReceiptItem(receipt: ReceiptEntity) {
                 )
             }
 
-            // Display other information (amount and date)
             Text(
                 "Amount: ${receipt.amount} ${receipt.currency}",
-                style = MaterialTheme.typography.headlineSmall // Updated typography for Material 3
+                style = MaterialTheme.typography.headlineSmall
             )
             Text(
                 "Date: ${formatDate(receipt.date)}",
-                style = MaterialTheme.typography.bodyMedium // Updated typography for Material 3
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
 }
 
-// Helper function to format the date
 fun formatDate(timestamp: Long): String {
     val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return sdf.format(Date(timestamp))

@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)  // Singleton scope for database
+@InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
     @Provides

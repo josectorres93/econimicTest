@@ -16,16 +16,13 @@ class ReceiptViewModel @Inject constructor(
     private val receiptRepository: ReceiptRepository
 ) : ViewModel() {
 
-    // LiveData to expose the receipts list
     private val _receipts = MutableLiveData<List<ReceiptEntity>>()
     val receipts: LiveData<List<ReceiptEntity>> = _receipts
 
     init {
-        // Load all receipts when the ViewModel is created
         loadReceipts()
     }
 
-    // Function to load all receipts from the database
     private fun loadReceipts() {
         viewModelScope.launch {
             try {
@@ -37,7 +34,6 @@ class ReceiptViewModel @Inject constructor(
         }
     }
 
-    // Function to add a new receipt
     fun addReceipt(imageUri: String, date: Long, amount: Double, currency: String) {
         viewModelScope.launch {
             try {
@@ -48,8 +44,6 @@ class ReceiptViewModel @Inject constructor(
                     currency = currency
                 )
                 receiptRepository.saveReceipt(newReceipt)
-
-                // Reload receipts after adding the new receipt to refresh the UI
                 loadReceipts()
             } catch (e: Exception) {
                 Log.e("ReceiptViewModel", "Error adding receipt", e)
