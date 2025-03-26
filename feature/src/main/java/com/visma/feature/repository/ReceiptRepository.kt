@@ -2,7 +2,6 @@ package com.visma.feature.repository
 
 import com.visma.data.local.ReceiptDao
 import com.visma.data.local.ReceiptEntity
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ReceiptRepository @Inject constructor(

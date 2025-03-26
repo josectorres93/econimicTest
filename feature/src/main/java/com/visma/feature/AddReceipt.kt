@@ -53,7 +53,9 @@ fun AddReceiptScreen(
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success ->
-        if (!success) {
+        if (success) {
+            // Image captured successfully, `imageUri` is updated.
+        } else {
             imageUri = null // Clear the image if capturing failed
         }
     }
@@ -98,10 +100,10 @@ fun AddReceiptScreen(
                 Button(
                     onClick = {
                         if (cameraPermissionState.status.isGranted) {
-                            imageUri = createImageUri(context)
-                            launcher.launch(imageUri!!)
+                            imageUri = createImageUri(context) // Generate a new image URI
+                            launcher.launch(imageUri!!) // Launch the camera
                         } else {
-                            cameraPermissionState.launchPermissionRequest()
+                            cameraPermissionState.launchPermissionRequest() // Request permission
                         }
                     }
                 ) {
@@ -127,7 +129,7 @@ fun AddReceiptScreen(
                     onClick = {
                         if (amount.isNotEmpty() && currency.isNotEmpty() && imageUri != null) {
                             viewModel.addReceipt(imageUri.toString(), date, amount.toDouble(), currency)
-                            onReceiptAdded()
+                            onReceiptAdded() // Trigger callback after adding the receipt
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -139,8 +141,10 @@ fun AddReceiptScreen(
     )
 }
 
+// Create a unique image URI based on the current time
 fun createImageUri(context: Context): Uri {
-    val imageFile = File(context.externalCacheDir, "receipt_image.jpg")
+    val timestamp = System.currentTimeMillis() // Generate a unique file name based on timestamp
+    val imageFile = File(context.externalCacheDir, "receipt_image_$timestamp.jpg") // Unique filename
     return FileProvider.getUriForFile(
         context,
         "${context.packageName}.fileprovider",

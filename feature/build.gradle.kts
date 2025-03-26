@@ -1,6 +1,9 @@
 plugins {
     id ("com.android.library")
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    id("org.jetbrains.kotlin.kapt")
+
 }
 
 android {
@@ -9,8 +12,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 34
-
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +31,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    hilt {
+        enableAggregatingTask = false
     }
     buildFeatures {
         compose = true
@@ -61,6 +65,14 @@ dependencies {
     implementation(libs.coil.compose)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Dagger Hilt for Dependency Injection
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.junit.ktx)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation ("com.google.accompanist:accompanist-permissions:0.30.1")
 
+}
+kapt {
+    correctErrorTypes = true
 }

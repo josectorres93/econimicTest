@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(project(":feature"))
+    implementation(project(":core"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -74,10 +77,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     // Dagger Hilt for Dependency Injection
     implementation(libs.hilt.android)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.junit.ktx)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    // Room for database
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 }
 kapt {
     correctErrorTypes = true
