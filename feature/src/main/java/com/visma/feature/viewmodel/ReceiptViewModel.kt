@@ -23,11 +23,11 @@ class ReceiptViewModel @Inject constructor(
         loadReceipts()
     }
 
-    private fun loadReceipts() {
+    fun loadReceipts() {
         viewModelScope.launch {
             try {
-                val receiptList = receiptRepository.getReceiptFromDb() // Get the receipts from the repository
-                _receipts.postValue(receiptList) // Update LiveData
+                val receiptList = receiptRepository.getReceiptFromDb()
+                _receipts.postValue(receiptList)
             } catch (e: Exception) {
                 Log.e("ReceiptViewModel", "Error loading receipts", e)
             }
