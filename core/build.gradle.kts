@@ -1,5 +1,5 @@
 plugins {
-    id ("com.android.library")
+    id("com.android.library")
     alias(libs.plugins.kotlin.android)
 }
 
@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 34
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

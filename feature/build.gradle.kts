@@ -70,8 +70,7 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation ("com.google.accompanist:accompanist-permissions:0.30.1")
-    // Unit testing
+    implementation(libs.accompanist.permissions)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
